@@ -1,3 +1,0 @@
-swaggerOptions = {}
-
-module.exports = swaggerOptions
