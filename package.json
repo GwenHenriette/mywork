@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "server": "nodemon --ignore 'backend/' server.js",
+    "server": "nodemon --ignore 'backend/' backend/server.js",
     "client": "npx vercel dev",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "dev:install": "npm install && cd backend && npm install && cd ../frontend && npm install",
