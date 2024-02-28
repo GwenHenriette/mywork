@@ -14,7 +14,7 @@
     "normalize.css": "^8.0.1",
     "passport": "^0.6.0",
     "react": "^18.2.0",
-    "react-alert-template-mui": "^1.0.7",
+    "react-alert-template-mui": "^latest_version",
     "react-dom": "^18.2.0",
     "react-router": "^6.14.1",
     "react-router-dom": "^6.8.0",
