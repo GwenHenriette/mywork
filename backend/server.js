@@ -29,20 +29,28 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOp
 const frontendUrl = process.env.FRONTEND_URL;
 const backendUrl = process.env.BACKEND_URL;
 
+
 const PORT = process.env.API_PORT || 8888;
+
 
 // Middleware to extract frontend URL from headers
 app.use((req, res, next) => {
-  const frontendUrl = req.headers['frontend-url']; // Correct header key
+  const frontendUrl = req.headers['Frontend-Url']; // Correct header key
   // You can now use frontendUrl as needed in your routes
   req.frontendUrl = frontendUrl;
   next();
-});
+}); 
+
+const corsOptions = {
+  origin: 'https://gpgcdemo.vercel.app/',
+  credentials: true,
+};
+
 
 // Example route or controller
-app.get('/example-route', (req, res) => {
+app.get('/api/some-endpoint', (req, res) => {
   // Use frontendUrl and backendUrl as needed
-  axios.get(backendUrl + '/api/some-endpoint', { headers: { 'Frontend-Url': frontendUrl } })
+  axios.get(`${backendUrl}/api/some-endpoint`, { headers: { 'Frontend-Url': frontendUrl } })
     .then(response => {
       // Handle response
       res.send(response.data);
