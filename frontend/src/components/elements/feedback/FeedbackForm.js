@@ -12,6 +12,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import submitFeedback from './FeedbackBackend';
 import './FeedbackForm.css';
 
+import ToastComponent from '../../ToastComponent'; // Import ToastComponent
+
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -26,6 +29,20 @@ const FeedbackForm = ({ onClose }) => {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(null);
   const [subscribe, setSubscribe] = useState(false);
+  const [toastMessage, setToastMessage] = useState(''); // State for toast message
+  const [toastType, setToastType] = useState('');
+
+    // Function to show toast
+    const showToast = (message, type) => {
+      setToastMessage(message);
+      setToastType(type);
+      setTimeout(() => {
+        setToastMessage('');
+        setToastType('');
+      }, 3000);
+    };
+  
+
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -48,12 +65,12 @@ const FeedbackForm = ({ onClose }) => {
     console.log({ name, email, comment, rating, subscribe });
     submitFeedback(name, email, comment, rating, subscribe)
       .then((data) => {
-        window.alert('Feedback submitted!');
-        onClose();
+        showToast('Feedback submitted!', 'success'); // Use toast for success message
+        
       })
       .catch((error) => {
         console.error(error);
-        window.alert('Failed to submit feedback!');
+        showToast('Failed to submit feedback!', 'error'); // Use toast for error message
       });
   };
 
@@ -138,6 +155,7 @@ const FeedbackForm = ({ onClose }) => {
           </Box>
         </form>
       </div>
+      <ToastComponent message={toastMessage} type={toastType} />
     </ThemeProvider>
   );
 };
