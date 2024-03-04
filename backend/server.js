@@ -18,7 +18,7 @@ const axios = require('axios'); // Import axios
 
 app.use(rateLimit);
 app.use(cookieParser());
-app.use(cors({ origin: config.FRONTEND_URL, credentials: true }));
+app.use(cors({ origin: config.REACT_APP_FRONTEND_URL, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.disable('x-powered-by');
@@ -26,8 +26,8 @@ app.use(helmet());
 app.use("/api", routesIndex);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 
-const frontendUrl = process.env.FRONTEND_URL;
-const backendUrl = process.env.BACKEND_URL;
+const frontendUrl = process.env.REACT_APP_FRONTEND_URL;
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 
 const PORT = process.env.API_PORT || 8888;

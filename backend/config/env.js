@@ -1,6 +1,6 @@
 module.exports = {
   "API_PORT": process.env.API_PORT,
-  "FRONTEND_URL": process.env.FRONTEND_URL,
+  "FRONTEND_URL": process.env.REACT_APP_FRONTEND_URL,
   "JWT_SECRET": process.env.JWT_SECRET,
   "JWT_LENGTH_MS": process.env.JWT_LENGTH_MS || 604800000,
 
