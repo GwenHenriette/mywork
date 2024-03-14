@@ -9,7 +9,7 @@
   ],
   "env": {
     "REACT_APP_DEV_API_URL": "http://localhost:8887",
-    "REACT_APP_PROD_API_URL": "http://167.99.187.179:8889"
+    "REACT_APP_PROD_API_URL": "https://167.99.187.179:8889"
   }
   
 }
