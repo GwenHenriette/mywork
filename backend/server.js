@@ -14,8 +14,11 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swaggerDocument');
 const swaggerOptions = require('./swagger/swaggerOptions');
 const { sequelize } = require('./models');
-const axios = require('axios'); // Import axios
+const axios = require('axios'); // Import axios 
+const authroute = require('./routes/auth');
 
+app.set('trust proxy', true);
+app.use("/api/auth", authroute);
 app.use(rateLimit);
 app.use(cookieParser());
 app.use(cors({ origin: config.REACT_APP_FRONTEND_URL, credentials: true }));
@@ -42,9 +45,12 @@ app.use((req, res, next) => {
 }); 
 
 const corsOptions = {
-  origin: 'https://gpgcdemo.vercel.app/',
+  origin: process.env.REACT_APP_FRONTEND_URL,
   credentials: true,
+  optionsSuccessStatus: 200
 };
+
+app.use(cors(corsOptions));
 
 
 // Example route or controller
@@ -56,9 +62,18 @@ app.get('/api/some-endpoint', (req, res) => {
       res.send(response.data);
     })
     .catch(error => {
-      // Handle error
+      // Handle error more gracefully
       console.error("Error in axios request:", error);
-      res.status(500).send('Internal Server Error');
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        res.status(error.response.status).send(error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        res.status(500).send('No response from server');
+      } else {
+        // Something happened in setting up the request that triggered an error
+        res.status(500).send('Request setup error');
+      }
     });
 });
 

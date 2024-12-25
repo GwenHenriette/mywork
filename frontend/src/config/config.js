@@ -1,4 +1,5 @@
 const getAPI_URL = () => {
+  console.log(process.env.NODE_ENV)
   if (process.env.NODE_ENV.toLowerCase() === 'development') {
     if (typeof process.env.REACT_APP_DEV_API_URL === 'undefined') {
       console.log('\nNO `REACT_APP_DEV_API_URL` DEFINED\n');

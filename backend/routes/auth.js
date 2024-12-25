@@ -4,7 +4,9 @@ const { User, User_Role, Role } = require('../models')
 const { createToken } = require('../utils/token')
 const { v4: uuidv4 } = require("uuid")
 const bcrypt = require('bcrypt')
-const env = require('../config/env')
+const env = require('../config/env') 
+
+
 
 router.post('/login', async (req, res) => {
   if (req.cookies['access-token']) return res.status(400).json({ errorMessage: 'Already logged in' })
@@ -49,15 +51,16 @@ router.post('/login', async (req, res) => {
           {
             httpOnly: true,
             maxAge: env.JWT_LENGTH_MS,
-            sameSite: 'none',
-            secure: true
+            sameSite: 'lax',
+            secure: false
           }
         ).json({ message: 'Successfully logged in', token: token, role: roleTitle })
     })
   } catch (error) {
     return res.status(500).json({ error, errorMessage: 'Encountered unexpected error while logging in' })
   }
-})
+}) 
+
 
 router.post('/logout', async (req, res) => {
   try {
